@@ -1,5 +1,7 @@
 package com.iansit.plugin.utils.network.listener
 
+import org.json.JSONObject
+
 interface IOMobileNetworkListener {
     // WIFI & Mobile Network 권한이 없음
     fun denidedNeworkPermission()
@@ -9,8 +11,8 @@ interface IOMobileNetworkListener {
     fun disableInternet()
     // WIFI 호출 횟수 초과함
     fun wifiSearchCountOver()
-    // 정보 조회 성공 (dataList는 Test모드 시에만 데이터가 들어옴)
-    fun successFindInfo(jsonString : String,dataList:ArrayList<Any>? = null)
+    // 정보 조회 성공
+    fun successFindInfo(json: JSONObject? = null)
     // 모바일 네트워크를 확인할 수 없음
     fun canNotCheckMobileNetwork()
 }

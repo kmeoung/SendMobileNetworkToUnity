@@ -123,7 +123,7 @@ class MobileNetworkManager(private val context: Context) {
                     }
 
                     val dataJson = dataFormatToJson(networkList, context)
-                    mobileNetworkListener.successFindInfo(dataJson.toString())
+                    mobileNetworkListener.successFindInfo(dataJson)
                     // WIFI Receiver 사용 후 등록해제
                     wifiManager.dispose()
                 }
