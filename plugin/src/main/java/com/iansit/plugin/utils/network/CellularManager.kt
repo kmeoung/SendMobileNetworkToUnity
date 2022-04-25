@@ -50,7 +50,8 @@ class CellularManager(private val context: Context) {
      */
     fun checkInternet(): Boolean {
         // 시스템 > 설정 > 위치 및 보안 > 무선 네트워크 사용 여부 체크.
-        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        return true
+//        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
     }
 

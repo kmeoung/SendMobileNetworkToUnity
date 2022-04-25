@@ -64,7 +64,7 @@ class unityPlugin {
         )
     }
 
-    private fun getAndroidID():String {
+    private fun getAndroidID(): String {
         return Settings.Secure.getString(
             context!!.contentResolver,
             Settings.Secure.ANDROID_ID
@@ -72,22 +72,25 @@ class unityPlugin {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getSimOperator():String {
-        //for dual sim mobile
-        val localSubscriptionManager = SubscriptionManager.from(context)
-        return if (localSubscriptionManager.activeSubscriptionInfoCount > 1) {
-            //if there are two sims in dual sim mobile
-            val localList: List<*> = localSubscriptionManager.activeSubscriptionInfoList
-            val simInfo = localList[0] as SubscriptionInfo
-            //            val simInfo1 = localList[1] as SubscriptionInfo
-            simInfo.displayName.toString()
-            //                val sim2 = simInfo1.displayName.toString()
-        } else {
-            //if there is 1 sim in dual sim mobile
-            val tManager = context!!
-                .getSystemService(AppCompatActivity.TELEPHONY_SERVICE) as TelephonyManager
-            tManager.networkOperatorName
-        }
+    private fun getSimOperator(): Any? {
+        //if there is 1 sim in dual sim mobile
+        val tManager = context!!
+            .getSystemService(AppCompatActivity.TELEPHONY_SERVICE) as TelephonyManager
+        return "KT"
+//        return tManager.networkOperatorName.ifEmpty {
+//            tManager.simOperatorName.ifEmpty {
+//                val localSubscriptionManager = SubscriptionManager.from(context)
+//                if (localSubscriptionManager.activeSubscriptionInfoCount > 0) {
+//                    //if there are two sims in dual sim mobile
+//                    val localList: List<*> = localSubscriptionManager.activeSubscriptionInfoList
+//                    val simInfo = localList[0] as SubscriptionInfo
+//                    //            val simInfo1 = localList[1] as SubscriptionInfo
+//                    simInfo.displayName.toString()
+//                } else {
+//                    "KT"
+//                }
+//            }
+//        }
     }
 
 
@@ -104,9 +107,9 @@ class unityPlugin {
         homeId: String,
         measurementMode: String,
         measurementSequence: String,
-        measurementId:String,
-        measurementX:String,
-        measurementY:String
+        measurementId: String,
+        measurementX: String,
+        measurementY: String
     ) {
         Toast.makeText(context, "find network data...", Toast.LENGTH_LONG).show()
         val networkManager = MobileNetworkManager(context!!)
@@ -148,13 +151,13 @@ class unityPlugin {
             }
 
             override fun successFindInfo(json: JSONObject?) {
-                if(json != null){
-                    json.put("Home_Id",homeId)
-                    json.put("measurement_Mode",measurementMode)
-                    json.put("measurement_Id",measurementId)
-                    json.put("measurement_Sequence",measurementSequence)
-                    json.put("measurement_X",measurementX)
-                    json.put("measurement_Y",measurementY)
+                if (json != null) {
+                    json.put("Home_Id", homeId)
+                    json.put("measurement_Mode", measurementMode)
+                    json.put("measurement_Id", measurementId)
+                    json.put("measurement_Sequence", measurementSequence)
+                    json.put("measurement_X", measurementX)
+                    json.put("measurement_Y", measurementY)
                     UnityPlayer.UnitySendMessage(objName, "getNetworkSuccess", json.toString())
                 }
 
