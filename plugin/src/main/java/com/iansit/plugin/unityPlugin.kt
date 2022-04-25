@@ -76,21 +76,20 @@ class unityPlugin {
         //if there is 1 sim in dual sim mobile
         val tManager = context!!
             .getSystemService(AppCompatActivity.TELEPHONY_SERVICE) as TelephonyManager
-        return "KT"
-//        return tManager.networkOperatorName.ifEmpty {
-//            tManager.simOperatorName.ifEmpty {
-//                val localSubscriptionManager = SubscriptionManager.from(context)
-//                if (localSubscriptionManager.activeSubscriptionInfoCount > 0) {
-//                    //if there are two sims in dual sim mobile
-//                    val localList: List<*> = localSubscriptionManager.activeSubscriptionInfoList
-//                    val simInfo = localList[0] as SubscriptionInfo
-//                    //            val simInfo1 = localList[1] as SubscriptionInfo
-//                    simInfo.displayName.toString()
-//                } else {
-//                    "KT"
-//                }
-//            }
-//        }
+        return tManager.networkOperatorName.ifEmpty {
+            tManager.simOperatorName.ifEmpty {
+                val localSubscriptionManager = SubscriptionManager.from(context)
+                if (localSubscriptionManager.activeSubscriptionInfoCount > 0) {
+                    //if there are two sims in dual sim mobile
+                    val localList: List<*> = localSubscriptionManager.activeSubscriptionInfoList
+                    val simInfo = localList[0] as SubscriptionInfo
+                    //            val simInfo1 = localList[1] as SubscriptionInfo
+                    simInfo.displayName.toString()
+                } else {
+                    "KT"
+                }
+            }
+        }
     }
 
 
